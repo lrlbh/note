@@ -1,0 +1,23 @@
+syntax = "proto3";
+// 导入另外一个proto文件
+import "info.proto";
+// 添加命名空间
+package itcast;
+// 枚举类型的定义
+enum MyColor
+{
+    RED = 0;    // 枚举中的第一个值必须等于0
+    GREEN = 3;
+    BLUE = 5;
+}
+
+message Persion
+{
+	int32 id = 1;
+	repeated bytes name = 2;    // name 类型是vector<bytes> name
+	bytes sex = 3;
+    int32 age = 4;
+    MyColor color = 5;
+    // 包名.message类名
+    myinfo.Info info = 6;
+}
