@@ -69,6 +69,7 @@ void test01()
 	set_difference(v1.begin(), v1.end(), v2.begin(), v2.end(), v4.begin());
 	for_each(v4.begin(), v4.end(), [](int a) {cout << a << " "; }); cout << endl;
 
+
 	//set_difference算法 求两个set集合的差集
 	//v2的差集，v2独有的元素
 	v4.resize(v2.size());
