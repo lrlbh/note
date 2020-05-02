@@ -58,6 +58,7 @@
   - 类似数组，但是无需指定长度，可以存储任意数据类型
 
 - 使用
+
   - 使用中括号定义
 
     - ~~~python
@@ -178,7 +179,7 @@
     
     ~~~
 
--  内置方法
+- 内置方法
 
   - ~~~	python
     #内置方法使用  temp_str.  的方式调用
@@ -299,7 +300,7 @@
     
     #指定位置 插入一个元素 可以插任意元素
     [2,3].insert(0,"A") 
-
+    
     # 删除指定元素
      del [1,2,3][0]
     
@@ -324,7 +325,6 @@
     
     
     ~~~
-    
 
 
 
@@ -433,7 +433,17 @@
   # 尾删
   {"name":"lr","age":14}.popitem() # 返回 ('age', 14)
    
-   # 获取所有key,可以用于for循环遍历
+  # 更新字典，有则修改，无则添加
+  {"name":"lr","age":18}.update({"age":12,"sex":"男"})
+  
+  # 设置 一个元素
+  # 没有这个元素则添加
+  {"name":"lr","age":18}.setdefault('sex',"男") # 返回 '男'
+  # 有这个元素则返回 key 对应的 value
+  {"name":"lr","age":18}.setdefault('age',14) # 返回 18
+   
+   
+  # 获取所有key,可以用于for循环遍历
   {"name":"lr","age":16}.keys() # 返回 dict_keys(['name', 'age'])
   # 获取所有value,可以用于for循环遍历
   {"name":"lr","age":16}.values() # 返回 dict_values(['lr', 16])
@@ -447,6 +457,38 @@
   ('age', 12)
   
   
+  ~~~
+
+  
+
+
+
+#### 集合 {}
+
+- 主要用于去重、关系运算
+
+- 定义
+
+  ~~~python
+  # 空集合
+  my_set = set()
+  
+  # 定义
+  my_set={1,"2"}
+  ~~~
+
+- 类型转换
+
+  ~~~python
+  '''
+  但凡能被for循环遍历的数据类型都可以传给set()转换成集合类型
+  '''
+  
+  # 字符串 转 列表
+  set("ABC")  # 返回 {'A', 'B', 'C'}
+  
+  # 字典 转 列表
+  set({"name":"lsl","age":15}) # 返回 {'age', 'name'}
   ~~~
 
   
@@ -516,4 +558,263 @@ PASS
     ~~~
 
 - not in 判断一个对象，是否被另外一个对象包含，不包含返回Ture
+
+
+
+### 文件操作
+
+#### 文件操作权限
+
+~~~python
+r	只读不存在则创建
+w	只写不存在则创建
+a	追加不存在则创建
+
+~~~
+
+
+
+
+
+#### 打开文件
+
+~~~python
+# 文本方式打开文件
+f = open('a.txt','r',encoding="utf-8")
+
+# 二进制方式打开文件
+f = open("a.txt",mode="rb")
+
+
+~~~
+
+
+
+#### 读文件
+
+~~~python
+# 文本模式，读取所有内容，返回 字符串
+res = f.read()
+
+# 二进制方式，读取所有内容 返回 bytes 数组
+res = f.read()
+
+# 读取指定长度的内容，文本模式单位是字符，二进制模式单位是字节，字符串长度为0表示读完了
+res = f.read(1024)
+
+# 文本模式，读取每一行内容,存放于列表中
+ res = f.readlines()
+
+# 文本模式，读取一行内容,光标移动到第二行首部，返回字符串
+res = f.readlines()
+
+
+~~~
+
+
+
+#### 写文件
+
+~~~ python
+# 文本模式，返回的是写入的字符个数
+f.write("啊啊12") # 返回 4
+
+# 二进制模式，返回的是写入的字节数
+f.write(b'\xff\x0f') # 返回 2
+
+# 文本模式，列表写入
+f.writelines(['333\n','444\n'])  # 文件模式
+~~~
+
+
+
+#### 文件指针操作
+
+~~~python
+'''
+f.seek(0,0)
+参数1：移动多少个字节或字符（二进制模式移动字节，文本模式移动字符）
+参数2：模式
+	0：文件起始位置开始移动
+	1：从当前位置开始移动，只有二进制模式可以使用
+	2：从末尾开始移动，只有二进制模式可以使用
+''' 
+~~~
+
+
+
+
+
+#### 关闭文件
+
+~~~python
+# 关闭文件
+f.close()
+~~~
+
+
+
+#### 其他
+
+~~~python
+f.readable()  # 文件是否可读
+f.writable()  # 文件是否可读
+f.closed  # 文件是否关闭
+f.encoding  # 如果文件打开模式为b,则没有该属性
+f.flush()  # 立刻将文件内容从内存刷到硬盘
+f.name
+~~~
+
+
+
+### 函数
+
+函数也是对象
+
+函数名代表地址
+
+
+
+#### 函数使用
+
+~~~python
+# 定义
+def f(name,age):
+    print("name={0} age={1}".format(name,age))
+
+#调用
+a("lr",14)
+a(age=14,name="lr")
+a('lr',age='123')
+~~~
+
+
+
+#### 默认参数
+
+~~~python
+'''
+1、有默认值的参数必须在末尾,有可变长度参数时，可以在可变长度参数前面
+2、参数的默认值，只在定义时被赋值一次
+'''
+
+# 定义
+x = 14
+def f(name,age=x):
+    print("name={0} age={1}".format(name,age))
+x = 18
+
+# 调用
+f("lr")	# 输出name=lr age=14
+f("lr",16) # 输出 name=lr age=16
+~~~
+
+
+
+#### 可变长度参数 列表
+
+~~~python
+'''
+1、可变参数可以传0-n个值，函数内部使用列表接收
+2、可变参数需要在末尾
+'''
+
+# 定义 
+def f(name,age=14,*argv):
+	print("name={0} age={1} argv={2}".format(name,age,argv))
+
+# 调用    
+f("lr",1,2,3) # 输出 name=lr age=1 argv=(2, 3)
+f("lr",*[1,2,3]) # 输出 name=lr age=1 argv=(2, 3)
+f("lr",1,[1,2,3]) # 输出 name=lr age=1 argv=([1, 2, 3],)
+~~~
+
+
+
+#### 可变长度参数 字典
+
+~~~python
+'''
+1、可变参数可以传0-n个值，函数内部使用字典接收
+2、可变参数需要在末尾
+'''
+
+# 定义
+def f(name,age=14,**kv_agrv):
+    print("name ={0} age={1} kv_agrv={2}".format(name,age,kv_agrv))
+
+#调用
+f("lr",14,aa="a") # 输出 name =lr age=14 kv_agrv={'aa': 'a'}
+f("lr",18,aa = "a",bb="b") # 输出 name =lr age=18 kv_agrv={'aa': 'a', 'bb': 'b'}
+f("lr",**{"aa":"a", "bb":"b"}) # 输出 name =lr age=14 kv_agrv={'aa': 'a', 'bb': 'b'} 
+~~~
+
+
+
+
+
+#### 强制使用关键字传参
+
+~~~python
+# 定义 
+# * 号后面的参数必须使用关键词调用，否则报错
+def f(name,age=18,*,sex,height):
+    print("name ={0} age={1} sex={2} height={3}".format(name,age,sex,height))
+
+# 调用
+f("lr",sex = "man" ,height = 1.76) # 输出 name =lr age=18 sex=man height=1.76 
+~~~
+
+
+
+### 名称空间与作用域
+
+名称空间的加载顺序是：内置名称空间->全局名称空间->局部名称空间，
+
+名称空间的查找顺序是：局部名称空间->全局名称空间->内置名称空间。
+
+
+
+```python
+# 局部中 使用 全局变量 
+global x
+```
+
+
+
+### 装饰器
+
+
+
+#### 无参装饰器
+
+~~~python
+ import time
+
+ # 源函数
+ def print_test():
+     print("test")
+     return "tt"
+
+ # 装饰器函数                                    
+ def f(func):
+     # 给写好的函数添加功能
+     def ff():
+         start_time = time.time()
+         # 调用源函数
+         res = func()
+         stop_time = time.time() - start_time;
+         # 返回源函数返回结果
+         return res
+     # 装饰器 返回内部函数
+     return ff
+
+ # 修改源函数的地址
+ print_test = f(print_test)
+
+ # 调用源函数
+ print(print_test())
+~~~
+
+
 
