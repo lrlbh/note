@@ -484,10 +484,10 @@
   但凡能被for循环遍历的数据类型都可以传给set()转换成集合类型
   '''
   
-  # 字符串 转 列表
+  # 字符串 转 集合
   set("ABC")  # 返回 {'A', 'B', 'C'}
   
-  # 字典 转 列表
+  # 字典 转 集合
   set({"name":"lsl","age":15}) # 返回 {'age', 'name'}
   ~~~
 
@@ -558,6 +558,26 @@ PASS
     ~~~
 
 - not in 判断一个对象，是否被另外一个对象包含，不包含返回Ture
+
+
+
+#### 身份运算符
+
+- is 判断 两个对象地址是否相同，身份运算符是唯一已知的，进行地址比较的运算符
+
+
+
+- is not   相同返回false  不通返回ture
+
+
+
+#### 位运算
+
+- & : 按位与
+  - 同1为1，其他为0，常用于将某几位置0
+
+- |：按位或
+  - 同0为0，其他为1，常用于将某几位置1 
 
 
 
@@ -767,6 +787,96 @@ f("lr",sex = "man" ,height = 1.76) # 输出 name =lr age=18 sex=man height=1.76
 
 
 
+#### 装饰器
+
+在不修改源函数的情况下 给函数添加功能
+
+
+
+##### 无参装饰器
+
+~~~python
+ '''
+ 无参装饰器的实现，装饰器原理
+ '''
+  
+ import time
+
+# 装饰器 给源函数添加 功能
+ def print_test():
+     print("test")
+     return "tt"
+
+ # 装饰器函数                                    
+ def f(func):
+        
+     # 给写好的函数添加功能
+     def ff():
+            
+        # 添加打印时间的功能
+        print("当前时间戳：{0}".format(time.time()))
+        
+         # 调用源函数
+         res = func()
+        
+         # 返回源函数返回结果
+         return res
+    
+     # 装饰器 返回内部函数
+     return ff
+
+ # 修改源函数的地址
+ print_test = f(print_test)
+
+ # 调用源函数
+ print(print_test())
+~~~
+
+~~~python
+'''
+装饰器语法实现
+'''
+import time
+from functools import wraps
+
+# 装饰器 给源函数添加 功能
+def print_name_time(func):
+
+    # 文档注释之类的信息跟随
+    @wraps(func)
+    
+    #内部函数写要添加的功能
+    def f(*argv,**kv_argv):
+        
+        # 添加打印时间的功能
+        print("当前时间戳：{0}".format(time.time()))
+        
+        # 调用源函数，并且返回源函数的返回值
+        return func(*argv,**kv_argv)
+    
+    # 返回内部函数的地址
+    return f
+
+
+# 装饰器语法糖 替代修改源函数地址的步骤 print_name = print_name_time(print_name)
+@print_name_time 
+# 源函数
+def print_name(name,age):
+    print("name ={0} age = {1}".format(name,age))
+    return "ok"
+
+# 调用
+print(print_name(name = "lr", age = 14))
+~~~
+
+
+
+
+
+
+
+
+
 ### 名称空间与作用域
 
 名称空间的加载顺序是：内置名称空间->全局名称空间->局部名称空间，
@@ -782,39 +892,42 @@ global x
 
 
 
-### 装饰器
 
 
-
-#### 无参装饰器
+### 模块的导入语法
 
 ~~~python
- import time
+# 使用都需要加前缀 模块名.
+import 模块名
 
- # 源函数
- def print_test():
-     print("test")
-     return "tt"
+# 可以直接使用模块内部名称
+from 模块名 import 模块内名称1,模块内部名称2
+# 导入所有内部名称，可以由 __all__控制，# __all__=['模块内名称1','模块内部名称2'] 
+from 模块名 import *
 
- # 装饰器函数                                    
- def f(func):
-     # 给写好的函数添加功能
-     def ff():
-         start_time = time.time()
-         # 调用源函数
-         res = func()
-         stop_time = time.time() - start_time;
-         # 返回源函数返回结果
-         return res
-     # 装饰器 返回内部函数
-     return ff
+# 给模块起别名
+import 模块名 as xx
 
- # 修改源函数的地址
- print_test = f(print_test)
 
- # 调用源函数
- print(print_test())
+
+
 ~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
