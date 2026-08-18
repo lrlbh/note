@@ -6,6 +6,157 @@
 
 ## Go基础
 
+
+
+
+
+
+
+### 内置标识符
+
+>- go语言共有65个预声明标识符
+>  - 25个关键字
+>  - 40个其他标识符
+
+
+
+#### 关键字
+
+~~~go
+package	// 定义包名
+import 	// 导入包名
+const 	// 常量声明
+var 	// 变量声明
+func 	// 函数定义
+defer 	// 延迟执行语句
+go 		// 并发执行函数
+return 	// 函数返回
+
+struct		// 定义结构类型
+interface	// 定义接口类型
+map 		// 声明或创建 kv 类型
+chan 		// 声明或创建 管道 类型
+
+if else 										// if else 句关键字
+for range break continue 						// for循环使用
+switch select type case default fallthrough		// switch select 语句使用
+goto 											// goto语句
+~~~
+
+
+
+
+
+#### 数据类型
+
+~~~go
+// 数值（16个）
+	// 整型（12个）
+		byte int int8 int16 int32 int64
+		uint uint8 uint16 uint32 uint64 uintprt
+	// 浮点型（2个）
+		float32 float64
+	// 复数型（2个）
+		complex64 complex128
+
+// 字符和字符串型（2个）
+	string rune
+
+// 接口型（1个）
+	error
+
+//布尔型（1个）
+	bool
+~~~
+
+
+
+#### 函数
+
+~~~go
+make new len cap append copy delete panic recover close complex real image Print prrintf
+~~~
+
+
+
+#### 常量
+
+~~~go
+true false
+iota
+nil
+~~~
+
+
+
+#### 空白标识符
+
+~~~go
+_
+~~~
+
+
+
+
+
+#### string的常用操作
+
+~~~go
+//返回字符串的长度
+len()
+
+//返回格式化字符串
+fmt.Sprintf()
+
+//分割字符串，返回一个string切片
+ret := strings.Split("abc@abc","@")
+
+//查看字符串是否包含某个子串，返回bool
+ret2 := strings.Contains("abcdefg","fg")
+
+//是否已某个子串开头,返回bool
+ret2 = strings.HasPrefix("abcdefg","abc")
+
+//是否已某个子串结尾,返回bool
+ret2 = strings.HasSuffix("abcdefg","efg")
+
+//返回子串第一次出现的下标，输出0
+ret3 := strings.Index("abcabc","abc")
+
+//返回子串最后一次出现的下标，输出3
+ret3 = strings.LastIndex("abcabc","abc")
+
+//使用某个子串连接切片，返回字符串
+str2 := strings.Join([]string{"1","2","3","4"},"+")
+
+
+~~~
+
+
+
+### 内建函数
+
+~~~go
+//获取数据的长度
+func len(v Type) int
+返回值：返回传入数据的长度
+参数：
+	v Type:
+		数组名
+		指针名
+		切片名称
+
+
+~~~
+
+
+
+### 单元测试
+
+
+
+
+
 ### 编译
 
 ~~~shell
@@ -66,85 +217,6 @@ CXX=g++
 
 
 
-
-
-
-
-### 内建数据类型
-
-#### 分类
-
-- 值类型
-  - int
-  - float
-  - bool
-  - string
-  - 数组
-  - struct
-- 引用类型
-  - 指针
-  - slice
-  - map
-  - chan
-
-#### string的常用操作
-
-~~~go
-//返回字符串的长度
-len()
-
-//返回格式化字符串
-fmt.Sprintf()
-
-//分割字符串，返回一个string切片
-ret := strings.Split("abc@abc","@")
-
-//查看字符串是否包含某个子串，返回bool
-ret2 := strings.Contains("abcdefg","fg")
-
-//是否已某个子串开头,返回bool
-ret2 = strings.HasPrefix("abcdefg","abc")
-
-//是否已某个子串结尾,返回bool
-ret2 = strings.HasSuffix("abcdefg","efg")
-
-//返回子串第一次出现的下标，输出0
-ret3 := strings.Index("abcabc","abc")
-
-//返回子串最后一次出现的下标，输出3
-ret3 = strings.LastIndex("abcabc","abc")
-
-//使用某个子串连接切片，返回字符串
-str2 := strings.Join([]string{"1","2","3","4"},"+")
-
-
-~~~
-
-
-
-### 内建函数
-
-~~~go
-//获取数据的长度
-func len(v Type) int
-返回值：返回传入数据的长度
-参数：
-	v Type:
-		数组名
-		指针名
-		切片名称
-
-
-~~~
-
-
-
-
-
-
-
-
-
 ## 密码
 
 
@@ -154,7 +226,7 @@ func len(v Type) int
 #### 说明
 
 - 加解密使用相同的秘钥
-- 相当于非对称加密来说，加密效率和安全性高
+- 相对于非对称加密来说，加密效率和安全性高
 
 
 
